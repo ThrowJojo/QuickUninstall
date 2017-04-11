@@ -8,8 +8,8 @@ import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
-import name.packageshandler.AppData;
 import name.quickuninstall.App;
+import name.quickuninstall.apps.AppData;
 import name.quickuninstall.databinding.RowAppBinding;
 
 /**

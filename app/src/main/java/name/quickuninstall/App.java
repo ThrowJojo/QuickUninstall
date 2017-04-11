@@ -7,7 +7,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 
-import name.packageshandler.AppData;
+import name.quickuninstall.apps.AppData;
 
 /**
  * Created by jordanholland on 2017/04/09.

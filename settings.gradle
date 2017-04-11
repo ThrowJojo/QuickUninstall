@@ -1,1 +1,1 @@
-include ':app', ':packageshandler'
+include ':app'

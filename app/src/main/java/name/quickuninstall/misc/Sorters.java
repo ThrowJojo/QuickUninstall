@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import name.packageshandler.AppData;
+import name.quickuninstall.apps.AppData;
+
 
 /**
  * Created by jordanholland on 2017/04/10.

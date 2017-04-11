@@ -1,10 +1,9 @@
-package name.packageshandler;
+package name.quickuninstall.apps;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

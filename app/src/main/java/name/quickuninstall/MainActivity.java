@@ -19,9 +19,9 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
-import name.packageshandler.AppData;
-import name.packageshandler.PackagesHandler;
 import name.quickuninstall.adapters.AppListAdapter;
+import name.quickuninstall.apps.AppData;
+import name.quickuninstall.apps.PackagesHandler;
 import name.quickuninstall.databinding.ActivityMainBinding;
 import name.quickuninstall.layout.BottomSheetDialog;
 import name.quickuninstall.layout.BottomSheetDialogListener;
