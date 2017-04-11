@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">QuickUninstall</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="action_share_app">Share App</string>
+    <string name="action_rate">Rate App</string>
+
+    <string name="title_search">Search</string>
+    <string name="title_sort">Sort By</string>
+
+    <string name="hint_search">Search for an App</string>
+
+    <string name="share_text">Check out this great app!</string>
+
+    <string name="share_chooser">Share this app with a friend</string>
+
+    <string name="sort_title">Sort</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_date">Install date</string>
+    <string name="sort_size">File size</string>
+</resources>

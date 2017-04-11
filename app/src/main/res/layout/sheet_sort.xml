@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+        <variable
+            name="dialog"
+            type="name.quickuninstall.layout.BottomSheetDialog"/>
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sort_title"
+            android:textSize="@dimen/text_large"
+            android:textAllCaps="true"
+            android:padding="@dimen/padding_large"/>
+
+        <LinearLayout
+            android:id="@+id/sortName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_large"
+            app:onClickListener="@{()->dialog.onSortNameClicked()}"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_name"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="true"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sortSize"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_large"
+            app:onClickListener="@{()->dialog.onSortSizeClicked()}"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_size"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sortDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_large"
+            app:onClickListener="@{()->dialog.onSortDateClicked()}"
+            >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sort_date"
+                android:textSize="@dimen/text_medium"
+                android:textAllCaps="true"
+                />
+        </LinearLayout>
+    </LinearLayout>
+</layout>
