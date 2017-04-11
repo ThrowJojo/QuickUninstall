@@ -3,14 +3,17 @@ package name.quickuninstall;
 import android.app.SearchManager;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.ObservableList;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -35,8 +38,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     ArrayList<AppData> appData;
     LinearLayoutManager layoutManager;
     AppListAdapter appListAdapter;
-    BottomSheetDialog bottomSheet = new BottomSheetDialog();
-    SortType sortType = SortType.NAME;
+    BottomSheetDialog bottomSheet;
     ActivityMainBinding binding;
 
     @Override
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setActivity(this);
         app = (App) getApplication();
+        app.selectedApps.addOnListChangedCallback(listListener);
+        bottomSheet = new BottomSheetDialog();
+        bottomSheet.app = app;
         bottomSheet.listener = this;
         setSupportActionBar(binding.toolbar);
         populateAppList();
@@ -54,7 +59,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     // Populates the list with apps that are installed on the current device
     private void populateAppList() {
         appData = PackagesHandler.getInstalledPackages(this);
-        sortAppDataBy(sortType);
+        sortAppDataBy(app.sortType);
         layoutManager = new LinearLayoutManager(this);
         binding.appList.setLayoutManager(layoutManager);
         binding.appList.setItemAnimator(new DefaultItemAnimator());
@@ -101,6 +106,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
+
+        MenuItem unselectAll = menu.findItem(R.id.action_unselect_all);
+        // If there is at least 1 selected app show the menu item, if not disable it
+        unselectAll.setVisible((app.selectedApps.size() > 0));
         return true;
     }
 
@@ -121,9 +130,27 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             // Opens the sort menu
             toggleBottomSheet();
             return true;
+        } else if (id == R.id.action_select_all) {
+            // Selects all apps
+            selectAllApps();
+            return true;
+        } else if (id == R.id.action_unselect_all) {
+            // Deselects any selected apps
+            unselectAllApps();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    // Method to select every app in the list
+    private void selectAllApps() {
+        app.replaceSelectedApps(appData);
+    }
+
+    // Method to deselect every app in the list
+    private void unselectAllApps() {
+        app.replaceSelectedApps(new ArrayList<AppData>());
     }
 
     // Method to show the sort menu
@@ -158,11 +185,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public void onSortSelected(SortType type) {
         sortAppDataBy(type);
         appListAdapter.notifyDataSetChanged();
+        bottomSheet.refreshSortChoice();
     }
 
     // Changes the selected sortType then sorts the appData ArrayList based on the value
     private void sortAppDataBy(SortType type) {
-        sortType = type;
+        app.sortType = type;
         switch (type) {
             case NAME:
                 Sorters.byName(appData);
@@ -178,5 +206,28 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 break;
         }
     }
+
+    // The observer for the list of selected apps
+    private ObservableList.OnListChangedCallback<ObservableList<AppData>> listListener = new ObservableList.OnListChangedCallback<ObservableList<AppData>>() {
+
+        @Override
+        public void onItemRangeRemoved(ObservableList<AppData> appDatas, int i, int i1) {
+            //noinspection RestrictedApi
+            invalidateOptionsMenu();
+        }
+
+        @Override
+        public void onItemRangeInserted(ObservableList<AppData> appDatas, int i, int i1) {
+            //noinspection RestrictedApi
+            invalidateOptionsMenu();
+        }
+
+        @Override
+        public void onChanged(ObservableList<AppData> appDatas) {}
+        @Override
+        public void onItemRangeChanged(ObservableList<AppData> appDatas, int i, int i1) {}
+        @Override
+        public void onItemRangeMoved(ObservableList<AppData> appDatas, int i, int i1, int i2) {}
+    };
 
 }

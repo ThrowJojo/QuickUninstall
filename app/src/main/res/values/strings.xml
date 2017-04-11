@@ -4,6 +4,8 @@
 
     <string name="action_share_app">Share App</string>
     <string name="action_rate">Rate App</string>
+    <string name="action_select_all">Select All</string>
+    <string name="action_unselect_all">Un-select All</string>
 
     <string name="title_search">Search</string>
     <string name="title_sort">Sort By</string>
