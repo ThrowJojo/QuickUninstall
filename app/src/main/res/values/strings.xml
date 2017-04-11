@@ -14,8 +14,10 @@
 
     <string name="share_chooser">Share this app with a friend</string>
 
-    <string name="sort_title">Sort</string>
-    <string name="sort_name">Name</string>
-    <string name="sort_date">Install date</string>
-    <string name="sort_size">File size</string>
+    <string name="sort_name">Sort By Name</string>
+    <string name="sort_date">Sort By Install Date</string>
+    <string name="sort_size">Sort By File Size</string>
+
+    <string name="toast_uninstall">Select some apps to uninstall first</string>
+
 </resources>

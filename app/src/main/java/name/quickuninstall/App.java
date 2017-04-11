@@ -42,13 +42,14 @@ public class App extends Application {
         return selectedApps.size() > 0;
     }
 
+    // Uninstalls all the apps on the selected list then clears it
     public void uninstallSelectedApps() {
         for (AppData data : selectedApps) {
             Intent intent = new Intent(Intent.ACTION_DELETE);
             intent.setData(Uri.parse("package:" + data.packageName));
             startActivity(intent);
         }
-        Log.e(App.class.toString(), " FINISHED UNINSTALLING APPS");
+        selectedApps.clear();
     }
 
 }

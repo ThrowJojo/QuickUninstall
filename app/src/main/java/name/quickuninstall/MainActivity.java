@@ -13,6 +13,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+
 import java.util.ArrayList;
 
 import name.packageshandler.AppData;
@@ -25,7 +29,6 @@ import name.quickuninstall.misc.Functions;
 import name.quickuninstall.misc.SortType;
 import name.quickuninstall.misc.Sorters;
 
-// TODO: Hardcode SearchView, searchable.xml
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener {
 
     App app;
@@ -45,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bottomSheet.listener = this;
         setSupportActionBar(binding.toolbar);
         populateAppList();
+        addAdView();
     }
 
     // Populates the list with apps that are installed on the current device
@@ -58,12 +62,26 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         binding.appList.setAdapter(appListAdapter);
     }
 
+    // Ads a banner to the top of the app
+    private void addAdView() {
+        AdView adView = new AdView(this);
+        adView.setAdSize(AdSize.SMART_BANNER);
+        adView.setAdUnitId(Constants.AD_UNIT_ID_BANNER);
+        // TODO: Change Test Device before release
+        AdRequest request = new AdRequest.Builder()
+                .addTestDevice("A15869F56E0F5EB30C64F129E81D2578")
+                .build();
+        adView.loadAd(request);
+        binding.adContainer.addView(adView);
+    }
+
+    // Method for when uninstall is clicked, if no apps are selected a Toast dialog appears
     public void onUninstallClicked() {
         if (app.canUninstallApps()) {
             app.uninstallSelectedApps();
+            appListAdapter.notifyDataSetChanged();
         } else {
-            // TODO: Hardcode string or change FAB to not appear if nothing is selected
-            Toast.makeText(this, "Select some apps to uninstall first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.toast_uninstall), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -76,7 +94,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         MenuItem searchItem = menu.findItem(R.id.search);
@@ -96,9 +113,11 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             Functions.showAppListing(this, getPackageName());
             return true;
         } else if (id == R.id.action_share) {
+            // Opens a dialog to let the user share the app
             Functions.shareApp(this);
             return true;
         } else if (id == R.id.action_sort) {
+            // Opens the sort menu
             toggleBottomSheet();
             return true;
         }
@@ -106,10 +125,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return super.onOptionsItemSelected(item);
     }
 
+    // Method to show the sort menu
     private void toggleBottomSheet() {
         bottomSheet.show(getSupportFragmentManager(), bottomSheet.getTag());
     }
 
+    // Method called when the text of a search changes
     @Override
     public boolean onQueryTextChange(String newText) {
         ArrayList<AppData> queryResults = getAppsForQuery(newText);
@@ -130,12 +151,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         return false;
     }
 
+    // Delegate method for when a sort option is selected
     @Override
     public void onSortSelected(SortType type) {
         sortAppDataBy(type);
         appListAdapter.notifyDataSetChanged();
     }
 
+    // Changes the selected sortType then sorts the appData ArrayList based on the value
     private void sortAppDataBy(SortType type) {
         sortType = type;
         switch (type) {

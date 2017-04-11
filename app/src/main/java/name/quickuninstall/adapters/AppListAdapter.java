@@ -33,6 +33,7 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         holder.binding.nameLabel.setText(data.label);
         holder.binding.packageNameLabel.setText(data.packageName);
         holder.binding.sizeLabel.setText(Formatter.formatShortFileSize(app, data.size));
+        // Set the checkbox listener to null so no events are dispatched
         holder.binding.checkbox.setOnCheckedChangeListener(null);
         holder.binding.checkbox.setChecked(app.appIsSelected(data));
         holder.binding.checkbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

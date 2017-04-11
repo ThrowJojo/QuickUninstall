@@ -19,11 +19,6 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
     SheetSortBinding binding;
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         Dialog dialog = super.onCreateDialog(savedInstanceState);
         LayoutInflater inflater = LayoutInflater.from(getContext());
@@ -33,16 +28,19 @@ public class BottomSheetDialog extends BottomSheetDialogFragment {
         return dialog;
     }
 
+    // Binded method for when Sort By Name is selected
     public void onSortDateClicked() {
         if (listener != null) listener.onSortSelected(SortType.DATE);
         dismiss();
     }
 
+    // Binded method for when Sort By Name is selected
     public void onSortNameClicked() {
         if (listener != null) listener.onSortSelected(SortType.NAME);
         dismiss();
     }
 
+    // Binded method for when Sort By Size is selected
     public void onSortSizeClicked() {
         if (listener != null) listener.onSortSelected(SortType.FILE_SIZE);
         dismiss();

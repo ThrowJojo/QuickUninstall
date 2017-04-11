@@ -32,6 +32,7 @@
                 android:id="@+id/nameLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/textMain"
                 android:textSize="@dimen/text_medium"
                 android:text="App Label"
                 />
