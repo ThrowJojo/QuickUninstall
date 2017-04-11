@@ -3,10 +3,10 @@ package name.quickuninstall;
 import android.app.Application;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 
 import java.util.ArrayList;
 
+import name.quickuninstall.adapters.AppListAdapter;
 import name.quickuninstall.apps.AppData;
 
 /**
@@ -14,6 +14,8 @@ import name.quickuninstall.apps.AppData;
  */
 
 public class App extends Application {
+
+    AppListAdapter appListAdapter;
 
     // A list of apps that have been selected by the user
     private ArrayList<AppData> selectedApps = new ArrayList<>();
@@ -26,11 +28,13 @@ public class App extends Application {
     // Adds an app to the selected list
     public void addSelectedApp(AppData data) {
         selectedApps.add(data);
+        if (appListAdapter != null) appListAdapter.notifyDataSetChanged();
     }
 
     // Removes an app from the selected list
     public void removeSelectedApp(AppData data) {
         selectedApps.remove(data);
+        if (appListAdapter != null) appListAdapter.notifyDataSetChanged();
     }
 
     // Checks whether an app is in the selected list

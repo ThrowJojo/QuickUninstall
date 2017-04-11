@@ -34,6 +34,4 @@ public class PackagesHandler {
         return !info.packageName.equals(context.getPackageName()) && !info.packageName.startsWith("com.android") && ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);
     }
 
-
-
 }

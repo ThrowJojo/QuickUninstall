@@ -2,9 +2,9 @@ package name.quickuninstall.layout;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
+
 import name.quickuninstall.databinding.SheetSortBinding;
 import name.quickuninstall.misc.SortType;
 

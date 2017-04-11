@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         binding.appList.setLayoutManager(layoutManager);
         binding.appList.setItemAnimator(new DefaultItemAnimator());
         appListAdapter = new AppListAdapter(app, appData);
+        app.appListAdapter = appListAdapter;
         binding.appList.setAdapter(appListAdapter);
     }
 
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onQueryTextChange(String newText) {
         ArrayList<AppData> queryResults = getAppsForQuery(newText);
         appListAdapter = new AppListAdapter(app, queryResults);
+        app.appListAdapter = appListAdapter;
         binding.appList.setAdapter(appListAdapter);
         return false;
     }
