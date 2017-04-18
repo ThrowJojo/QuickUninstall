@@ -1,4 +1,4 @@
-package name.quickuninstall.misc;
+package yourname.quickuninstall.misc;
 
 /**
  * Created by jordanholland on 2017/04/10.

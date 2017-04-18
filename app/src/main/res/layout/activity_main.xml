@@ -4,14 +4,14 @@
     <data>
         <variable
             name="activity"
-            type="name.quickuninstall.MainActivity"/>
+            type="yourname.quickuninstall.MainActivity"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        tools:context="name.quickuninstall.MainActivity"
+        tools:context="yourname.quickuninstall.MainActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

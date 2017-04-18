@@ -1,4 +1,4 @@
-package name.quickuninstall.adapters;
+package yourname.quickuninstall.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
@@ -8,9 +8,9 @@ import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
-import name.quickuninstall.App;
-import name.quickuninstall.apps.AppData;
-import name.quickuninstall.databinding.RowAppBinding;
+import yourname.quickuninstall.App;
+import yourname.quickuninstall.apps.AppData;
+import yourname.quickuninstall.databinding.RowAppBinding;
 
 /**
  * Created by jordanholland on 2017/04/09.

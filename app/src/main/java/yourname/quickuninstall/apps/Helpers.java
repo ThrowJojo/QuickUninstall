@@ -1,4 +1,4 @@
-package name.quickuninstall.apps;
+package yourname.quickuninstall.apps;
 
 import android.content.pm.PackageInfo;
 

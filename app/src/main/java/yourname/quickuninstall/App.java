@@ -1,4 +1,4 @@
-package name.quickuninstall;
+package yourname.quickuninstall;
 
 import android.app.Application;
 import android.content.Intent;
@@ -8,10 +8,9 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-import name.quickuninstall.adapters.AppListAdapter;
-import name.quickuninstall.apps.AppData;
-import name.quickuninstall.misc.SortType;
-import name.quickuninstall.misc.Sorters;
+import yourname.quickuninstall.adapters.AppListAdapter;
+import yourname.quickuninstall.apps.AppData;
+import yourname.quickuninstall.misc.SortType;
 
 /**
  * Created by jordanholland on 2017/04/09.

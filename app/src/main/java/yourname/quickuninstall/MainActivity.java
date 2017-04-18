@@ -1,4 +1,4 @@
-package name.quickuninstall;
+package yourname.quickuninstall;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -10,10 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
@@ -22,15 +20,15 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
-import name.quickuninstall.adapters.AppListAdapter;
-import name.quickuninstall.apps.AppData;
-import name.quickuninstall.apps.PackagesHandler;
-import name.quickuninstall.databinding.ActivityMainBinding;
-import name.quickuninstall.layout.BottomSheetDialog;
-import name.quickuninstall.layout.BottomSheetDialogListener;
-import name.quickuninstall.misc.Functions;
-import name.quickuninstall.misc.SortType;
-import name.quickuninstall.misc.Sorters;
+import yourname.quickuninstall.adapters.AppListAdapter;
+import yourname.quickuninstall.apps.AppData;
+import yourname.quickuninstall.apps.PackagesHandler;
+import yourname.quickuninstall.databinding.ActivityMainBinding;
+import yourname.quickuninstall.layout.BottomSheetDialog;
+import yourname.quickuninstall.layout.BottomSheetDialogListener;
+import yourname.quickuninstall.misc.Functions;
+import yourname.quickuninstall.misc.SortType;
+import yourname.quickuninstall.misc.Sorters;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener {
 

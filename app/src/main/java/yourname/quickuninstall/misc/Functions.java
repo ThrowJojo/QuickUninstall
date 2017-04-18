@@ -1,10 +1,10 @@
-package name.quickuninstall.misc;
+package yourname.quickuninstall.misc;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import name.quickuninstall.R;
+import yourname.quickuninstall.R;
 
 /**
  * Created by jordanholland on 2017/04/10.
@@ -12,7 +12,7 @@ import name.quickuninstall.R;
 
 public class Functions {
 
-    // Opens the Google Play store for an app using it's package name
+    // Opens the Google Play store for an app using it's package yourname
     public static void showAppListing(Context context, String packageName) {
         try {
             context.startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));

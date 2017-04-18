@@ -1,10 +1,10 @@
-package name.quickuninstall.misc;
+package yourname.quickuninstall.misc;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import name.quickuninstall.apps.AppData;
+import yourname.quickuninstall.apps.AppData;
 
 
 /**
@@ -33,7 +33,7 @@ public class Sorters {
         });
     }
 
-    // Sorts apps by name, alphabetically ascending
+    // Sorts apps by yourname, alphabetically ascending
     public static void byName(ArrayList<AppData> data) {
         Collections.sort(data, new Comparator<AppData>() {
             @Override

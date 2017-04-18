@@ -1,4 +1,4 @@
-package name.quickuninstall;
+package yourname.quickuninstall;
 
 import org.junit.Test;
 

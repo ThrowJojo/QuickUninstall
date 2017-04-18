@@ -1,6 +1,6 @@
-package name.quickuninstall.layout;
+package yourname.quickuninstall.layout;
 
-import name.quickuninstall.misc.SortType;
+import yourname.quickuninstall.misc.SortType;
 
 /**
  * Created by jordanholland on 2017/04/10.

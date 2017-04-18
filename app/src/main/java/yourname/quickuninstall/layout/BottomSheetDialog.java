@@ -1,14 +1,13 @@
-package name.quickuninstall.layout;
+package yourname.quickuninstall.layout;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 
-import name.quickuninstall.App;
-import name.quickuninstall.databinding.SheetSortBinding;
-import name.quickuninstall.misc.SortType;
+import yourname.quickuninstall.App;
+import yourname.quickuninstall.databinding.SheetSortBinding;
+import yourname.quickuninstall.misc.SortType;
 
 /**
  * Created by jordanholland on 2017/04/10.
