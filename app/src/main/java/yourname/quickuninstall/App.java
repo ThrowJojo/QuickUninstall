@@ -13,7 +13,7 @@ import yourname.quickuninstall.apps.AppData;
 import yourname.quickuninstall.misc.SortType;
 
 /**
- * Created by jordanholland on 2017/04/09.
+ * Created by Climbing Silver on 2017/04/09.
  */
 
 public class App extends Application {

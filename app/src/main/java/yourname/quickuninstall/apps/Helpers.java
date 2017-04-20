@@ -5,7 +5,7 @@ import android.content.pm.PackageInfo;
 import java.io.File;
 
 /**
- * Created by jordanholland on 2017/04/09.
+ * Created by Climbing Silver on 2017/04/09.
  */
 
 public class Helpers {

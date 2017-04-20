@@ -10,7 +10,7 @@ import yourname.quickuninstall.databinding.SheetSortBinding;
 import yourname.quickuninstall.misc.SortType;
 
 /**
- * Created by jordanholland on 2017/04/10.
+ * Created by Climbing Silver on 2017/04/10.
  */
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {

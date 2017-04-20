@@ -1,7 +1,7 @@
 package yourname.quickuninstall;
 
 /**
- * Created by jordanholland on 2017/04/11.
+ * Created by Climbing Silver on 2017/04/11.
  */
 
 public class Constants {

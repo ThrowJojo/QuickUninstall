@@ -8,7 +8,7 @@ import yourname.quickuninstall.apps.AppData;
 
 
 /**
- * Created by jordanholland on 2017/04/10.
+ * Created by Climbing Silver on 2017/04/10.
  */
 
 public class Sorters {
