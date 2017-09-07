@@ -28,7 +28,7 @@ public class Sorters {
         });
     }
 
-    // Sorts apps by yourname, alphabetically ascending
+    // Sorts apps by name, alphabetically ascending
     public static void byName(ArrayList<AppData> data) {
         Collections.sort(data, new Comparator<AppData>() {
             @Override
