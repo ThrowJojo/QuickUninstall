@@ -1,5 +1,6 @@
 package breakingscope.quickuninstall;
 
 public class Constants {
-    public static final String AD_UNIT_ID_BANNER = "ca-app-pub-3940256099942544/6300978111";
+    public static final String CONFIG_KEY_ADMOB_ID_BANNER = "admob_id_banner";
+    public static final String CONFIG_KEY_TEST_DEVICE = "test_device";
 }

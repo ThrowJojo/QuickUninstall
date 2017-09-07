@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import breakingscope.quickuninstall.adapters.AppListAdapter;
 import breakingscope.quickuninstall.apps.AppData;
+import breakingscope.quickuninstall.apps.Helpers;
 import breakingscope.quickuninstall.apps.PackagesHandler;
 import breakingscope.quickuninstall.databinding.ActivityMainBinding;
 import breakingscope.quickuninstall.layout.BottomSheetDialog;
@@ -70,10 +71,9 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     private void addAdView() {
         AdView adView = new AdView(this);
         adView.setAdSize(AdSize.SMART_BANNER);
-        adView.setAdUnitId(Constants.AD_UNIT_ID_BANNER);
-        // TODO: Change Test Device before release
+        adView.setAdUnitId(Helpers.readConfigValue(this, Constants.CONFIG_KEY_ADMOB_ID_BANNER));
         AdRequest request = new AdRequest.Builder()
-                .addTestDevice("A15869F56E0F5EB30C64F129E81D2578")
+                .addTestDevice(Helpers.readConfigValue(this, Constants.CONFIG_KEY_TEST_DEVICE))
                 .build();
         adView.loadAd(request);
         binding.adContainer.addView(adView);
