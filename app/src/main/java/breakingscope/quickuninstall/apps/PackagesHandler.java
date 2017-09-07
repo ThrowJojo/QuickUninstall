@@ -25,6 +25,17 @@ public class PackagesHandler {
 
     }
 
+    // Gets the number of installed non-system apps
+    public static int getNumberOfInstalledApps(Context context) {
+        int counter = 0;
+        List<PackageInfo> packages = context.getPackageManager().getInstalledPackages(0);
+        for (PackageInfo packageInfo : packages) {
+            if (!isValidPackage(context, packageInfo)) continue;
+            counter++;
+        }
+        return counter;
+    }
+
     // Check if the package is the current package, or if it is a system package
     private static boolean isValidPackage(Context context, PackageInfo info) {
         return !info.packageName.equals(context.getPackageName()) && !info.packageName.startsWith("com.android") && ((info.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0);

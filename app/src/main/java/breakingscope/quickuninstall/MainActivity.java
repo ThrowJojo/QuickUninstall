@@ -1,15 +1,20 @@
 package breakingscope.quickuninstall;
 
 import android.app.SearchManager;
+import android.arch.lifecycle.LifecycleRegistry;
+import android.arch.lifecycle.LifecycleRegistryOwner;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableList;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -21,50 +26,76 @@ import com.google.android.gms.ads.AdView;
 import java.util.ArrayList;
 
 import breakingscope.quickuninstall.adapters.AppListAdapter;
+import breakingscope.quickuninstall.adapters.AppListAdapterListener;
 import breakingscope.quickuninstall.apps.AppData;
 import breakingscope.quickuninstall.apps.Helpers;
-import breakingscope.quickuninstall.apps.PackagesHandler;
 import breakingscope.quickuninstall.databinding.ActivityMainBinding;
 import breakingscope.quickuninstall.layout.BottomSheetDialog;
 import breakingscope.quickuninstall.layout.BottomSheetDialogListener;
 import breakingscope.quickuninstall.misc.Functions;
 import breakingscope.quickuninstall.misc.SortType;
-import breakingscope.quickuninstall.misc.Sorters;
+import breakingscope.quickuninstall.models.AppsModel;
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener, AppListAdapterListener, LifecycleRegistryOwner {
 
-    App app;
-    ArrayList<AppData> appData;
     LinearLayoutManager layoutManager;
     AppListAdapter appListAdapter;
     BottomSheetDialog bottomSheet;
     ActivityMainBinding binding;
+
+    LifecycleRegistry lifecycleRegistry = new LifecycleRegistry(this);
+    AppsModel model;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         binding.setActivity(this);
-        app = (App) getApplication();
-        app.selectedApps.addOnListChangedCallback(listListener);
+
+        model = ViewModelProviders.of(this).get(AppsModel.class);
+        model.loadInstalledApps();
+        model.getInstalledApps().observe(this, new Observer<ArrayList<AppData>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<AppData> appData) {
+                if (appData != null && appData.size() != appListAdapter.appData.size()) {
+                    appListAdapter = new AppListAdapter(MainActivity.this, appData, model.getSelectedApps().getValue(), MainActivity.this);
+                    binding.appList.setAdapter(appListAdapter);
+                } else {
+                    appListAdapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        model.getSelectedApps().observe(this, new Observer<ArrayList<AppData>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<AppData> appData) {
+                appListAdapter.notifyDataSetChanged();
+            }
+        });
+
+        setup();
+
         bottomSheet = new BottomSheetDialog();
-        bottomSheet.app = app;
         bottomSheet.listener = this;
         setSupportActionBar(binding.toolbar);
-        populateAppList();
         addAdView();
     }
 
-    // Populates the list with apps that are installed on the current device
-    private void populateAppList() {
-        appData = PackagesHandler.getInstalledPackages(this);
-        sortAppDataBy(app.sortType);
+    public void setup() {
         layoutManager = new LinearLayoutManager(this);
         binding.appList.setLayoutManager(layoutManager);
         binding.appList.setItemAnimator(new DefaultItemAnimator());
-        appListAdapter = new AppListAdapter(app, appData);
-        app.appListAdapter = appListAdapter;
+        appListAdapter = new AppListAdapter(this, model.getInstalledApps().getValue(), model.getSelectedApps().getValue(), this);
         binding.appList.setAdapter(appListAdapter);
+    }
+
+    @Override
+    public void onSelectionChanged(AppData data, boolean value) {
+        if (value) {
+            model.addSelectedApp(data);
+        } else {
+            model.removeSelectedApp(data);
+        }
     }
 
     // Ads a banner to the top of the app
@@ -81,9 +112,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
     // Method for when uninstall is clicked, if no apps are selected a Toast dialog appears
     public void onUninstallClicked() {
-        if (app.canUninstallApps()) {
-            app.uninstallSelectedApps();
-            appListAdapter.notifyDataSetChanged();
+        if (model.canUninstallApps()) {
+            model.uninstallSelectedApps();
         } else {
             Toast.makeText(this, getString(R.string.toast_uninstall), Toast.LENGTH_SHORT).show();
         }
@@ -92,8 +122,12 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onResume() {
         super.onResume();
-        // Repopulates the app list if the after uninstalling/switching apps
-        populateAppList();
+        if (model != null) model.checkForReload();
+    }
+
+    @Override
+    public LifecycleRegistry getLifecycle() {
+        return lifecycleRegistry;
     }
 
     @Override
@@ -104,10 +138,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
-
         MenuItem unselectAll = menu.findItem(R.id.action_unselect_all);
+
         // If there is at least 1 selected app show the menu item, if not disable it
-        unselectAll.setVisible((app.selectedApps.size() > 0));
+        if (model.getSelectedApps().getValue() != null) unselectAll.setVisible((model.getSelectedApps().getValue().size() > 0));
         return true;
     }
 
@@ -130,25 +164,17 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             return true;
         } else if (id == R.id.action_select_all) {
             // Selects all apps
-            selectAllApps();
+            model.selectAllApps();
+            supportInvalidateOptionsMenu();
             return true;
         } else if (id == R.id.action_unselect_all) {
             // Deselects any selected apps
-            unselectAllApps();
+            model.deselectAllApps();
+            supportInvalidateOptionsMenu();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
-    }
-
-    // Method to select every app in the list
-    private void selectAllApps() {
-        app.replaceSelectedApps(appData);
-    }
-
-    // Method to deselect every app in the list
-    private void unselectAllApps() {
-        app.replaceSelectedApps(new ArrayList<AppData>());
     }
 
     // Method to show the sort menu
@@ -159,18 +185,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     // Method called when the text of a search changes
     @Override
     public boolean onQueryTextChange(String newText) {
-        ArrayList<AppData> queryResults = getAppsForQuery(newText);
-        appListAdapter = new AppListAdapter(app, queryResults);
-        app.appListAdapter = appListAdapter;
-        binding.appList.setAdapter(appListAdapter);
+        model.processSearchQuery(newText);
         return false;
-    }
-
-    // Get apps for a particular search query
-    private ArrayList<AppData> getAppsForQuery(String query) {
-        ArrayList<AppData> results = new ArrayList<>();
-        for (AppData data : appData) if (data.label.toLowerCase().contains(query.toLowerCase())) results.add(data);
-        return results;
     }
 
     @Override
@@ -181,51 +197,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     // Delegate method for when a sort option is selected
     @Override
     public void onSortSelected(SortType type) {
-        sortAppDataBy(type);
-        appListAdapter.notifyDataSetChanged();
-        bottomSheet.refreshSortChoice();
+        model.sortInstalledApps(type);
     }
-
-    // Changes the selected sortType then sorts the appData ArrayList based on the value
-    private void sortAppDataBy(SortType type) {
-        app.sortType = type;
-        switch (type) {
-            case NAME:
-                Sorters.byName(appData);
-                break;
-            case DATE:
-                Sorters.byInstalledDate(appData);
-                break;
-            case FILE_SIZE:
-                Sorters.bySize(appData);
-                break;
-            default:
-                Sorters.byName(appData);
-                break;
-        }
-    }
-
-    // The observer for the list of selected apps
-    private ObservableList.OnListChangedCallback<ObservableList<AppData>> listListener = new ObservableList.OnListChangedCallback<ObservableList<AppData>>() {
-
-        @Override
-        public void onItemRangeRemoved(ObservableList<AppData> appDatas, int i, int i1) {
-            //noinspection RestrictedApi
-            invalidateOptionsMenu();
-        }
-
-        @Override
-        public void onItemRangeInserted(ObservableList<AppData> appDatas, int i, int i1) {
-            //noinspection RestrictedApi
-            invalidateOptionsMenu();
-        }
-
-        @Override
-        public void onChanged(ObservableList<AppData> appDatas) {}
-        @Override
-        public void onItemRangeChanged(ObservableList<AppData> appDatas, int i, int i1) {}
-        @Override
-        public void onItemRangeMoved(ObservableList<AppData> appDatas, int i, int i1, int i2) {}
-    };
 
 }
