@@ -1,8 +1,4 @@
-package yourname.quickuninstall.misc;
-
-/**
- * Created by Climbing Silver on 2017/04/10.
- */
+package breakingscope.quickuninstall.misc;
 
 // A simple enum for sort types
 public enum SortType {

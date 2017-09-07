@@ -1,4 +1,4 @@
-package yourname.quickuninstall.apps;
+package breakingscope.quickuninstall.apps;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -6,10 +6,6 @@ import android.content.pm.PackageInfo;
 
 import java.util.ArrayList;
 import java.util.List;
-
-/**
- * Created by Climbing Silver on 2017/04/09.
- */
 
 public class PackagesHandler {
 

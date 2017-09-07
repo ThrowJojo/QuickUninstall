@@ -1,12 +1,8 @@
-package yourname.quickuninstall.apps;
+package breakingscope.quickuninstall.apps;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.drawable.Drawable;
-
-/**
- * Created by Climbing Silver on 2017/04/09.
- */
 
 public class AppData {
 

@@ -1,4 +1,4 @@
-package yourname.quickuninstall;
+package breakingscope.quickuninstall;
 
 import org.junit.Test;
 

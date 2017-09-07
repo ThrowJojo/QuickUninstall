@@ -1,17 +1,13 @@
-package yourname.quickuninstall.layout;
+package breakingscope.quickuninstall.layout;
 
 import android.app.Dialog;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetDialogFragment;
 import android.view.LayoutInflater;
 
-import yourname.quickuninstall.App;
-import yourname.quickuninstall.databinding.SheetSortBinding;
-import yourname.quickuninstall.misc.SortType;
-
-/**
- * Created by Climbing Silver on 2017/04/10.
- */
+import breakingscope.quickuninstall.App;
+import breakingscope.quickuninstall.databinding.SheetSortBinding;
+import breakingscope.quickuninstall.misc.SortType;
 
 public class BottomSheetDialog extends BottomSheetDialogFragment {
 

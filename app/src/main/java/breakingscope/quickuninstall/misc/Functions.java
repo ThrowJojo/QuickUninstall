@@ -1,14 +1,10 @@
-package yourname.quickuninstall.misc;
+package breakingscope.quickuninstall.misc;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 
-import yourname.quickuninstall.R;
-
-/**
- * Created by Climbing Silver on 2017/04/10.
- */
+import breakingscope.quickuninstall.R;
 
 public class Functions {
 

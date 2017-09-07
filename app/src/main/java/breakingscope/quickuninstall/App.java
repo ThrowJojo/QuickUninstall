@@ -1,4 +1,4 @@
-package yourname.quickuninstall;
+package breakingscope.quickuninstall;
 
 import android.app.Application;
 import android.content.Intent;
@@ -8,13 +8,9 @@ import android.net.Uri;
 
 import java.util.ArrayList;
 
-import yourname.quickuninstall.adapters.AppListAdapter;
-import yourname.quickuninstall.apps.AppData;
-import yourname.quickuninstall.misc.SortType;
-
-/**
- * Created by Climbing Silver on 2017/04/09.
- */
+import breakingscope.quickuninstall.adapters.AppListAdapter;
+import breakingscope.quickuninstall.apps.AppData;
+import breakingscope.quickuninstall.misc.SortType;
 
 public class App extends Application {
 

@@ -1,4 +1,4 @@
-package yourname.quickuninstall.adapters;
+package breakingscope.quickuninstall.adapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.text.format.Formatter;
@@ -8,13 +8,9 @@ import android.widget.CompoundButton;
 
 import java.util.ArrayList;
 
-import yourname.quickuninstall.App;
-import yourname.quickuninstall.apps.AppData;
-import yourname.quickuninstall.databinding.RowAppBinding;
-
-/**
- * Created by Climbing Silver on 2017/04/09.
- */
+import breakingscope.quickuninstall.App;
+import breakingscope.quickuninstall.apps.AppData;
+import breakingscope.quickuninstall.databinding.RowAppBinding;
 
 public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHolder> {
 

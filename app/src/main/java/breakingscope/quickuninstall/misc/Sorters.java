@@ -1,15 +1,10 @@
-package yourname.quickuninstall.misc;
+package breakingscope.quickuninstall.misc;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-import yourname.quickuninstall.apps.AppData;
-
-
-/**
- * Created by Climbing Silver on 2017/04/10.
- */
+import breakingscope.quickuninstall.apps.AppData;
 
 public class Sorters {
 

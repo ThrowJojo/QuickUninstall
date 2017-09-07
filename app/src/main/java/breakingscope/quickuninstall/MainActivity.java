@@ -1,4 +1,4 @@
-package yourname.quickuninstall;
+package breakingscope.quickuninstall;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -20,15 +20,15 @@ import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
-import yourname.quickuninstall.adapters.AppListAdapter;
-import yourname.quickuninstall.apps.AppData;
-import yourname.quickuninstall.apps.PackagesHandler;
-import yourname.quickuninstall.databinding.ActivityMainBinding;
-import yourname.quickuninstall.layout.BottomSheetDialog;
-import yourname.quickuninstall.layout.BottomSheetDialogListener;
-import yourname.quickuninstall.misc.Functions;
-import yourname.quickuninstall.misc.SortType;
-import yourname.quickuninstall.misc.Sorters;
+import breakingscope.quickuninstall.adapters.AppListAdapter;
+import breakingscope.quickuninstall.apps.AppData;
+import breakingscope.quickuninstall.apps.PackagesHandler;
+import breakingscope.quickuninstall.databinding.ActivityMainBinding;
+import breakingscope.quickuninstall.layout.BottomSheetDialog;
+import breakingscope.quickuninstall.layout.BottomSheetDialogListener;
+import breakingscope.quickuninstall.misc.Functions;
+import breakingscope.quickuninstall.misc.SortType;
+import breakingscope.quickuninstall.misc.Sorters;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener {
 

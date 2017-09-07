@@ -1,4 +1,4 @@
-package yourname.quickuninstall;
+package breakingscope.quickuninstall;
 
 import android.content.Intent;
 import android.os.Bundle;

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="dialog"
-            type="yourname.quickuninstall.layout.BottomSheetDialog"/>
+            type="breakingscope.quickuninstall.layout.BottomSheetDialog"/>
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
