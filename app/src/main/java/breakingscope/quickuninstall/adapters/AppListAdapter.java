@@ -27,6 +27,11 @@ public class AppListAdapter extends RecyclerView.Adapter<AppListAdapter.ViewHold
         this.listener = listener;
     }
 
+    public void updateData(ArrayList<AppData> appData, ArrayList<AppData> selectedApps) {
+        this.appData = appData;
+        this.selectedApps = selectedApps;
+    }
+
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final AppData data = appData.get(position);

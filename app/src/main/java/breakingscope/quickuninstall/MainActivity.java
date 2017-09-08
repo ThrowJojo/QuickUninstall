@@ -38,6 +38,8 @@ import breakingscope.quickuninstall.models.AppsModel;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener, BottomSheetDialogListener, AppListAdapterListener, LifecycleRegistryOwner {
 
+    private static final String LOG_TAG = MainActivity.class.getName();
+
     LinearLayoutManager layoutManager;
     AppListAdapter appListAdapter;
     BottomSheetDialog bottomSheet;
@@ -54,22 +56,16 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
         model = ViewModelProviders.of(this).get(AppsModel.class);
         model.loadInstalledApps();
-        model.getInstalledApps().observe(this, new Observer<ArrayList<AppData>>() {
+        model.getDisplayedApps().observe(this, new Observer<ArrayList<AppData>>() {
             @Override
             public void onChanged(@Nullable ArrayList<AppData> appData) {
-                if (appData != null && appData.size() != appListAdapter.appData.size()) {
-                    appListAdapter = new AppListAdapter(MainActivity.this, appData, model.getSelectedApps().getValue(), MainActivity.this);
-                    binding.appList.setAdapter(appListAdapter);
-                } else {
-                    appListAdapter.notifyDataSetChanged();
-                }
+                refreshList();
             }
         });
-
         model.getSelectedApps().observe(this, new Observer<ArrayList<AppData>>() {
             @Override
             public void onChanged(@Nullable ArrayList<AppData> appData) {
-                appListAdapter.notifyDataSetChanged();
+                refreshList();
             }
         });
 
@@ -85,8 +81,14 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         layoutManager = new LinearLayoutManager(this);
         binding.appList.setLayoutManager(layoutManager);
         binding.appList.setItemAnimator(new DefaultItemAnimator());
-        appListAdapter = new AppListAdapter(this, model.getInstalledApps().getValue(), model.getSelectedApps().getValue(), this);
+        appListAdapter = new AppListAdapter(this, model.getDisplayedApps().getValue(), model.getSelectedApps().getValue(), this);
         binding.appList.setAdapter(appListAdapter);
+    }
+
+    private void refreshList() {
+        appListAdapter.updateData(model.getDisplayedApps().getValue(), model.getSelectedApps().getValue());
+        appListAdapter.notifyDataSetChanged();
+        supportInvalidateOptionsMenu();
     }
 
     @Override
@@ -165,12 +167,10 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         } else if (id == R.id.action_select_all) {
             // Selects all apps
             model.selectAllApps();
-            supportInvalidateOptionsMenu();
             return true;
         } else if (id == R.id.action_unselect_all) {
             // Deselects any selected apps
             model.deselectAllApps();
-            supportInvalidateOptionsMenu();
             return true;
         }
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     // Delegate method for when a sort option is selected
     @Override
     public void onSortSelected(SortType type) {
-        model.sortInstalledApps(type);
+        model.sortDisplayedApps(type);
     }
 
 }

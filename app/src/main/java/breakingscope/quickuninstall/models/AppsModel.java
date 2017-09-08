@@ -24,6 +24,7 @@ import breakingscope.quickuninstall.misc.Sorters;
 public class AppsModel extends AndroidViewModel {
 
     private MutableLiveData<ArrayList<AppData>> installedApps = new MutableLiveData<>();
+    private MutableLiveData<ArrayList<AppData>> displayedApps = new MutableLiveData<>();
     private MutableLiveData<ArrayList<AppData>> selectedApps = new MutableLiveData<>();
 
     // The current sort type being used to list the apps in order
@@ -32,22 +33,24 @@ public class AppsModel extends AndroidViewModel {
     public AppsModel(Application application) {
         super(application);
         installedApps.setValue(new ArrayList<AppData>());
+        displayedApps.setValue(new ArrayList<AppData>());
         selectedApps.setValue(new ArrayList<AppData>());
     }
 
-    public LiveData<ArrayList<AppData>> getInstalledApps() {
-        return installedApps;
+    public LiveData<ArrayList<AppData>> getDisplayedApps() {
+        return displayedApps;
     }
 
     public LiveData<ArrayList<AppData>> getSelectedApps() {
         return selectedApps;
     }
 
-    public void sortInstalledApps(SortType type) {
+    // Sorts displayed apps
+    public void sortDisplayedApps(SortType type) {
         this.sortType = type;
-        if (installedApps.getValue() == null) return;
-        sortAppDataBy(installedApps.getValue(), type);
-        installedApps.setValue(installedApps.getValue());
+        if (displayedApps.getValue() == null) return;
+        sortAppDataBy(displayedApps.getValue(), type);
+        displayedApps.setValue(displayedApps.getValue());
     }
 
     // Changes the selected sortType then sorts the appData ArrayList based on the value
@@ -72,6 +75,7 @@ public class AppsModel extends AndroidViewModel {
     public void checkForReload() {
         if (installedApps.getValue() != null && installedApps.getValue().size() != PackagesHandler.getNumberOfInstalledApps(this.getApplication())) {
             selectedApps.setValue(new ArrayList<AppData>());
+            displayedApps.setValue(new ArrayList<AppData>());
             installedApps.setValue(new ArrayList<AppData>());
             loadInstalledApps();
         }
@@ -84,6 +88,7 @@ public class AppsModel extends AndroidViewModel {
             public Void then(Task<ArrayList<AppData>> task) throws Exception {
                 ArrayList<AppData> result = task.getResult();
                 sortAppDataBy(result, sortType);
+                displayedApps.setValue(result);
                 installedApps.setValue(result);
                 return null;
             }
@@ -106,17 +111,10 @@ public class AppsModel extends AndroidViewModel {
         }
     }
 
-    // Replaces the current selected list
-    public void replaceSelectedApps(ArrayList<AppData> newData) {
-        if (selectedApps.getValue() != null) {
-            selectedApps.setValue(newData);
-        }
-    }
-
     // Method to select every installed app
     public void selectAllApps() {
-        if (selectedApps.getValue() != null && installedApps.getValue() != null) {
-            replaceSelectedApps(installedApps.getValue());
+        if (selectedApps.getValue() != null && displayedApps.getValue() != null) {
+            selectedApps.setValue(displayedApps.getValue());
         }
     }
 
@@ -151,11 +149,10 @@ public class AppsModel extends AndroidViewModel {
 
     // Get apps for a particular search query
     public void processSearchQuery(String query) {
-        if (installedApps.getValue() == null) return;
+        if (installedApps.getValue() == null || displayedApps.getValue() == null) return;
         ArrayList<AppData> results = new ArrayList<>();
         for (AppData data : installedApps.getValue()) if (data.label.toLowerCase().contains(query.toLowerCase())) results.add(data);
-        installedApps.setValue(results);
+        displayedApps.setValue(results);
     }
-
 
 }
