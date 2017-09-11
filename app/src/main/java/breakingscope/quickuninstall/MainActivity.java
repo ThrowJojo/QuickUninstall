@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         bottomSheet = new BottomSheetDialog();
         bottomSheet.listener = this;
         setSupportActionBar(binding.toolbar);
-        addAdView();
+        if(!BuildConfig.DEBUG) addAdView();
     }
 
     public void setup() {

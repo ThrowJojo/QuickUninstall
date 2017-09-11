@@ -10,3 +10,4 @@
 local.properties
 /.idea
 /app/src/main/res/raw/config.properties
+/app/keys.jks
