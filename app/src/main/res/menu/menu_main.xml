@@ -3,12 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="breakingscope.quickuninstall.MainActivity">
 
-    <item android:id="@+id/search"
-        android:icon="@drawable/icon_search"
-        android:title="@string/title_search"
-        app:showAsAction="collapseActionView|ifRoom"
-        app:actionViewClass="android.support.v7.widget.SearchView" />
-
     <item android:id="@+id/action_sort"
         android:icon="@drawable/icon_sort"
         android:title="@string/title_sort"

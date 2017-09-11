@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">QuickUninstall</string>
+    <string name="app_name">QuikUninstall</string>
     <string name="action_settings">Settings</string>
 
     <string name="action_share_app">Share App</string>
@@ -12,7 +12,7 @@
 
     <string name="hint_search">Search for an App</string>
 
-    <string name="share_text">Check out this great app!</string>
+    <string name="share_text">Check out this great uninstaller app!</string>
 
     <string name="share_chooser">Share this app with a friend</string>
 
@@ -21,11 +21,11 @@
     <string name="sort_size">Sort By File Size</string>
 
     <string name="toast_uninstall">Select some apps to uninstall first</string>
-    <string name="title_activity_finish">FinishActivity</string>
 
     <string name="title_finished">All Done</string>
     <string name="subtitle_finished">Finished Uninstalling Apps</string>
 
     <string name="button_return">Return</string>
 
+    <string name="title_activity_finish">Finished</string>
 </resources>

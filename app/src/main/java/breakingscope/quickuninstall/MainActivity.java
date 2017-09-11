@@ -1,16 +1,13 @@
 package breakingscope.quickuninstall;
 
-import android.app.SearchManager;
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -83,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         binding.appList.setItemAnimator(new DefaultItemAnimator());
         appListAdapter = new AppListAdapter(this, model.getDisplayedApps().getValue(), model.getSelectedApps().getValue(), this);
         binding.appList.setAdapter(appListAdapter);
+        binding.searchView.setOnQueryTextListener(this);
     }
 
     private void refreshList() {
@@ -143,11 +141,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        MenuItem searchItem = menu.findItem(R.id.search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setOnQueryTextListener(this);
         MenuItem unselectAll = menu.findItem(R.id.action_unselect_all);
 
         // If there is at least 1 selected app show the menu item, if not disable it

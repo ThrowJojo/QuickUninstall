@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">QuikUninstall</string>
+    <string name="action_settings">設定</string>
+
+    <string name="action_share_app">シェア</string>
+    <string name="action_rate">評価</string>
+    <string name="action_select_all">全てを選択</string>
+    <string name="action_unselect_all">選択を解除</string>
+
+    <string name="title_search">検索</string>
+    <string name="title_sort">並べ替え</string>
+
+    <string name="hint_search">検索</string>
+
+    <string name="share_text">QuikUninstall アンインストーラー</string>
+
+    <string name="share_chooser">友達にシェア</string>
+
+    <string name="sort_name">アルファベット順</string>
+    <string name="sort_date">日付順</string>
+    <string name="sort_size">ファイルサイズ順</string>
+
+    <string name="toast_uninstall">アンインストールしたいアプリを選択してください</string>
+
+    <string name="title_finished">完了</string>
+    <string name="subtitle_finished">アンインストールが完了しました</string>
+
+    <string name="button_return">戻る</string>
+
+    <string name="title_activity_finish">完了</string>
+</resources>
