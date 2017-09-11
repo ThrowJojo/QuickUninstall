@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="breakingscope.quickuninstall">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -30,6 +32,10 @@
             android:name=".FinishActivity"
             android:label="@string/title_activity_finish"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="45a8d40275a3fa765b130cb1e5d3d11b9d68a7e1" />
     </application>
+
 
 </manifest>
