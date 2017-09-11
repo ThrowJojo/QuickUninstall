@@ -72,13 +72,15 @@ public class AppsModel extends AndroidViewModel {
     }
 
     // Checks if the list of installed apps has to be reloaded or not
-    public void checkForReload() {
+    public boolean uninstallCompleted() {
         if (installedApps.getValue() != null && installedApps.getValue().size() != PackagesHandler.getNumberOfInstalledApps(this.getApplication())) {
             selectedApps.setValue(new ArrayList<AppData>());
             displayedApps.setValue(new ArrayList<AppData>());
             installedApps.setValue(new ArrayList<AppData>());
             loadInstalledApps();
+            return true;
         }
+        return false;
     }
 
     // Loads the installed apps list asynchronously
@@ -130,7 +132,7 @@ public class AppsModel extends AndroidViewModel {
         return (selectedApps.getValue() != null && selectedApps.getValue().size() > 0);
     }
 
-    // Uninstalls all selected apps
+    // Shows uninstall prompts for all selected apps
     public void uninstallSelectedApps() {
         if (selectedApps.getValue() == null) return;
         for (AppData data : selectedApps.getValue()) {
@@ -138,7 +140,6 @@ public class AppsModel extends AndroidViewModel {
             intent.setData(Uri.parse("package:" + data.packageName));
             getApplication().startActivity(intent);
         }
-        selectedApps.getValue().clear();
     }
 
     private Task<ArrayList<AppData>> fetchInstalledApps() {

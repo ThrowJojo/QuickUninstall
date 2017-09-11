@@ -6,6 +6,7 @@ import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -14,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -124,7 +124,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     @Override
     protected void onResume() {
         super.onResume();
-        if (model != null) model.checkForReload();
+        // Shows FinishActivity if an uninstall has been made
+        if (model != null && model.uninstallCompleted()) {
+            startFinishActivity();
+        }
+    }
+
+    private void startFinishActivity() {
+        Intent intent = new Intent(this, FinishActivity.class);
+        startActivity(intent);
     }
 
     @Override

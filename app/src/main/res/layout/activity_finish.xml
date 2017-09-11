@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <data>
+        <variable
+            name="activity"
+            type="breakingscope.quickuninstall.FinishActivity" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="vertical"
+        tools:context="breakingscope.quickuninstall.FinishActivity">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/icon_delete_large" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/title_finished"
+            android:textColor="@color/textSub"
+            android:textSize="@dimen/text_large"
+            android:textStyle="bold"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/padding_medium"
+            android:text="@string/subtitle_finished"
+            android:textColor="@color/textSub"
+            android:textSize="@dimen/text_medium"
+            />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/padding_medium"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/button_return"
+            android:textColor="@color/textSub"
+            app:onClickListener="@{()->activity.onReturnClicked()}"
+            />
+
+    </LinearLayout>
+</layout>
+

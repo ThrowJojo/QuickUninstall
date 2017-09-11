@@ -21,5 +21,11 @@
     <string name="sort_size">Sort By File Size</string>
 
     <string name="toast_uninstall">Select some apps to uninstall first</string>
+    <string name="title_activity_finish">FinishActivity</string>
+
+    <string name="title_finished">All Done</string>
+    <string name="subtitle_finished">Finished Uninstalling Apps</string>
+
+    <string name="button_return">Return</string>
 
 </resources>
